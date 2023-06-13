@@ -82,10 +82,10 @@ WSGI_APPLICATION = 'bloodDonate.wsgi.application'
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'awsPorject',
+       'NAME': 'awsprojectdb',
        'USER': 'postgres',
-       'PASSWORD': 'pragna',
-       'HOST': '127.0.0.1',
+       'PASSWORD': 'awscharan',
+       'HOST': 'bddatebase.cmogv3rjeyml.eu-north-1.rds.amazonaws.com',
        'PORT': '5432',
    }
 }

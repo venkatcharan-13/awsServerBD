@@ -10,20 +10,20 @@ from rest_framework.response import Response
 
 
 
-######################################################################
+# ######################################################################
                                                                       
-customhost = "databasebd.cmogv3rjeyml.eu-north-1.rds.amazonaws.com" #
-customuser = "postgres"                                             #
-custompass = "awscharan"                                            #
-customdb = "bloodDonateApp_bloodDonateData"                         #
-custombucket = "blooddonationbucket"                                #
-customregion = "eu-north-1"                                         #
+# customhost = "databasebd.cmogv3rjeyml.eu-north-1.rds.amazonaws.com" #
+# customuser = "postgres"                                             #
+# custompass = "awscharan"                                            #
+# customdb = "bloodDonateApp_bloodDonateData"                         #
+# custombucket = "blooddonationbucket"                                #
+# customregion = "eu-north-1"                                         #
                                                                       
-######################################################################
+# ######################################################################
 
 
 # psql --host=databasebd.cmogv3rjeyml.eu-north-1.rds.amazonaws.com --port=5432 --username=postgres -W
-
+# psql --host=bddatebase.cmogv3rjeyml.eu-north-1.rds.amazonaws.com --port=5432 --username=postgres -W
 # Create your views here.
 def index(request):
     return render(request, 'about.html')
@@ -34,17 +34,16 @@ def wbd(request):
 def bad(request):
     return render(request,'BAD.html')
 
-bucket = custombucket
-region = customregion
+# bucket = custombucket region = customregion
 
 
-engine = psycopg2.connect(
-    database=customdb,
-    user=customuser,
-    password=custompass,
-    host=customhost,
-    port='5432'
-)
+# engine = psycopg2.connect(
+#     database=customdb,
+#     user=customuser,
+#     password=custompass,
+#     host=customhost,
+#     port='5432'
+# )
 
 def saveBAD(request):
     if request.method == "POST":
@@ -56,43 +55,43 @@ def saveBAD(request):
         bloodGroup_Id = request.POST['bloodGroupId']
         address_Id = request.POST['addressId']
         uploadCertificate_Id=request.POST['uploadCertificateId']
-        # ob=bloodDonateData.objects.all()
-        # certificate_file_name="bloodDonor_"+str(len(ob))
-        # certificate_image_file = "https://awsmyfirstproject.s3.eu-north-1.amazonaws.com/{0}".format(certificate_file_name)
-        # upload=bloodDonateData(full_name=fullName_Id,mobile_number=mobileNumber_Id,email_id=email_Id,age=age_Id,gender=gender_Id,blood_group=bloodGroup_Id,address=address_Id,upload_file=certificate_image_file)
-        # upload.save()  
+        ob=bloodDonateData.objects.all()
+        certificate_file_name="bloodDonor_"+str(len(ob))
+        certificate_image_file = "https://awsmyfirstproject.s3.eu-north-1.amazonaws.com/{0}".format(certificate_file_name)
+        upload=bloodDonateData(full_name=fullName_Id,mobile_number=mobileNumber_Id,email_id=email_Id,age=age_Id,gender=gender_Id,blood_group=bloodGroup_Id,address=address_Id,upload_file=certificate_image_file)
+        upload.save()  
         
-        if uploadCertificate_Id.filename == "":
-            return "Please select a file"
+        # if uploadCertificate_Id.filename == "":
+        #     return "Please select a file"
 
-        try:
-            ob=bloodDonateData.objects.all()
-            certificate_file_name="bloodDonor_"+str(len(ob))
-            certificate_image_file = "https://awsmyfirstproject.s3.eu-north-1.amazonaws.com/{0}".format(certificate_file_name)
-            upload=bloodDonateData(full_name=fullName_Id,mobile_number=mobileNumber_Id,email_id=email_Id,age=age_Id,gender=gender_Id,blood_group=bloodGroup_Id,address=address_Id,upload_file=certificate_image_file)
-            s3 = boto3.resource('s3')
+        # try:
+        #     ob=bloodDonateData.objects.all()
+        #     certificate_file_name="bloodDonor_"+str(len(ob))
+        #     certificate_image_file = "https://awsmyfirstproject.s3.eu-north-1.amazonaws.com/{0}".format(certificate_file_name)
+        #     upload=bloodDonateData(full_name=fullName_Id,mobile_number=mobileNumber_Id,email_id=email_Id,age=age_Id,gender=gender_Id,blood_group=bloodGroup_Id,address=address_Id,upload_file=certificate_image_file)
+        #     s3 = boto3.resource('s3')
 
-            try:
-                print("Data inserted in MySQL RDS... uploading image to S3...")
-                s3.Bucket(custombucket).put_object(Key=certificate_file_name, Body=uploadCertificate_Id)
-                bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
-                s3_location = (bucket_location['LocationConstraint'])
+        #     try:
+        #         print("Data inserted in MySQL RDS... uploading image to S3...")
+        #         s3.Bucket(custombucket).put_object(Key=certificate_file_name, Body=uploadCertificate_Id)
+        #         bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+        #         s3_location = (bucket_location['LocationConstraint'])
 
-                if s3_location is None:
-                    s3_location = ''
-                else:
-                    s3_location = '-' + s3_location
+        #         if s3_location is None:
+        #             s3_location = ''
+        #         else:
+        #             s3_location = '-' + s3_location
 
-                object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
-                    s3_location,
-                    custombucket,
-                    certificate_file_name)
+        #         object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+        #             s3_location,
+        #             custombucket,
+        #             certificate_file_name)
 
-            except Exception as e:
-                return str(e)
+        #     except Exception as e:
+        #         return str(e)
 
-        finally:
-           upload.save()
+        # finally:
+        #    upload.save()
 
         print("all modification done...")
         
