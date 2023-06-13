@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<div class="container">
+
+    <div class="forTopSection">
+        <h5 id="DispalyNameOfCompany">Blood Donation</h5>
+        <h1><b>{% block heading  %}{% endblock heading %}</b></h1>
+    </div>
+</div>
+{% block body %}{% endblock body %} {% block script %}{% endblock script %}{% endblock content %}

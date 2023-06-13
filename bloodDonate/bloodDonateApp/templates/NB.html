@@ -1,0 +1,46 @@
+{% extends 'appbase.html' %} {% load static %} {% block current4 %} current {% endblock current4 %}{% block heading %} Need Blood {% endblock heading %} {% block body %}
+<div class="container">
+    <div class="row" id="cardContainer">
+    </div>
+</div>
+{% endblock body %} {% block script %}
+
+<script>
+    const endpoint = 'api/nbinfo'
+    $.ajax({
+        method: "GET",
+        url: endpoint,
+        success: function(response) {
+            console.log("Success gathered Info");
+            show_bloodDonar_info(data)
+        },
+        error: function(error_data) {
+            console.log("Error");
+            console.log(error_data);
+        }
+    })
+
+    function show_bloodDonar_info(data) {
+        data = JSON.parse(data);
+        data.forEach(object => {
+            var htmlOfCard = ` 
+            <div class="col">
+                <div class="card" style="width: 23rem;">
+                    <h5 class="card-header">${object.full_name}</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">Donor Group : ${object.blood_group} </h5>
+                        <p class="card-text">
+                            Contact Details: <br>Mobile Number : ${object.mobile_number} <br> Email : ${object.email_id} <br>Age : ${object.age}<br> Gender : ${object.gender}<br> Address : ${object.address}
+                        </p>
+                        <a href="${object.upload_file}" blank=True class="btn btn-primary">Check Certificate</a>
+                    </div>
+              </div>
+            </div>
+       
+    `;
+
+            document.getElementById('cardContainer').insertAdjacentHTML('beforeend', htmlOfCard)
+        });
+    }
+</script>
+{% endblock script %}

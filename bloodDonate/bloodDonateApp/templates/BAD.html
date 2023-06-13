@@ -1,0 +1,55 @@
+{% extends 'appbase.html' %} {% load static %} {% block current3 %} current {% endblock current3 %}{% block heading %} Become a Blood Donar {% endblock heading %} {% block body %}
+<form class="row g-3" method="POST" action="saveForm">
+    {% csrf_token %}
+    <div class="col-md-4">
+        <label for="fullNameId" class="form-label">Full Name</label>
+        <input type="text" class="form-control" name="fullNameId">
+    </div>
+    <div class="col-md-4">
+        <label for="mobileNumberId" class="form-label">Mobile Number</label>
+        <input type="text" class="form-control" name="mobileNumberId">
+    </div>
+    <div class="col-md-4">
+        <label for="emailId" class="form-label">Email Id</label>
+        <input type="email" class="form-control" name="emailId">
+    </div>
+    <div class="col-md-4">
+        <label for="ageId" class="form-label">Age</label>
+        <input type="number" class="form-control" name="ageId">
+    </div>
+    <div class="col-md-4">
+        <label for="genderId" class="form-label">Gender</label>
+        <select name="genderId" class="form-select">
+          <option selected>Choose...</option>
+          <option>Male</option>
+          <option>Female</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <label for="bloodGroupId" class="form-label">Blood Group</label>
+        <select name="bloodGroupId" class="form-select">
+          <option selected>Choose....</option>
+          <option>A +</option>
+          <option>A -</option>
+          <option>B +</option>
+          <option>B -</option>
+          <option>o +</option>
+          <option>o -</option>
+          <option>AB +</option>
+          <option>AB -</option>
+
+        </select>
+    </div>
+    <div class="col-md-6">
+        <label for="addressId" class="form-label">Address</label>
+        <input type="text" class="form-control" name="addressId">
+    </div>
+    <div class="col-md-6">
+        <label for="uploadCertificateId" class="form-label">Upload Certificate</label>
+        <input type="file" class="form-control" name="uploadCertificateId">
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary"> Submit </button>
+    </div>
+</form>
+{% endblock body %}

@@ -1,0 +1,43 @@
+.skeleton {
+    font-family: 'Poppins';
+    color: black;
+    background-color: #f4f5fa;
+}
+
+.sidenav {
+    height: 100%;
+    width: 220px;
+    position: fixed;
+    z-index: 1;
+    background-color: #f4f5fa;
+    overflow-x: hidden;
+    padding-top: 30px;
+}
+
+.sidenav a {
+    padding: 15px 6px 6px 12px;
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    display: block;
+}
+
+.sidenav a:hover {
+    background-color: white;
+    border-radius: 10px;
+    color: #7a85f5;
+}
+
+.sidenav .current {
+    color: #4a3aff;
+}
+
+.main {
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    margin-left: 250px;
+    margin-right: 20px;
+    width: 80%;
+    padding-top: 50px;
+}
